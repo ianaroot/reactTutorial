@@ -23,12 +23,11 @@ const styles = EStyleSheet.create({
   },
   icon: {
     backgroundColor: 'transparent',
+    borderRadius: 15,
     width: 30,
     height: 30,
-    borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   iconVisible: {
     backgroundColor: '$primaryBlue'

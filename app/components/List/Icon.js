@@ -4,7 +4,7 @@ import {View, Image} from 'react-native';
 import styles from './styles';
 
 const Icon = ({checkmark, visible}) => {
-  const iconStyles= [styles.iconStyles];
+  const iconStyles= [styles.icon];
   if (visible) {
     iconStyles.push(styles.iconVisible)
   }
