@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView, StatusBar, Platform, Linking } from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-
+import { connectAlert } from '../components/Alert';
 import { ListItem, Separator } from '../components/List';
 
 const ICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md';
@@ -11,7 +11,8 @@ const ICON_SIZE = 23;
 
 class Options extends Component {
   static propTypes = {
-    navigation: PropTypes.object
+    navigation: PropTypes.object,
+    alertWithType: PropTypes.func,
   }
   handleThemesPress = () => {
     console.log('press themes');
@@ -20,7 +21,7 @@ class Options extends Component {
 
   handleSitePress = () => {
     console.log('press site')
-    Linking.openURL('http://fixer.io').catch( () => alert('an error occurred'))
+    Linking.openURL('http://fixer.io').catch( () => this.props.alertWithType('error', 'Sorry, buddy', "Fixer.io can't be opened right now"))
   }
 
   render() {
@@ -40,4 +41,4 @@ class Options extends Component {
   }
 }
 
-export default Options;
+export default connectAlert(Options);
