@@ -9,8 +9,9 @@ import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
+const I = I || 0
 
-import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
+import { swapCurrency, changeCurrencyAmount, getInititalConversion } from '../actions/currencies';
 
 
 class Home extends Component{
@@ -25,6 +26,11 @@ class Home extends Component{
     lastConvertedDate: PropTypes.object,
     primaryColor: PropTypes.string,
   };
+
+  componentWillMount() {
+    this.props.dispatch(getInititalConversion());
+  }
+
   handlePressBaseCurrency = () => {
     console.log('press base currency');
     this.props.navigation.navigate('CurrencyList', { title: 'Base Currency', type: 'base'});
@@ -93,8 +99,10 @@ class Home extends Component{
 }
 
 const mapStateToProps = (state) => {
+  I++
   const baseCurrency = state.currencies.baseCurrency;
   const quoteCurrency = state.currencies.quoteCurrency;
+  console.log("state.currenciesLog " + I, state.currencies)
   const conversionSelector = state.currencies.conversions[baseCurrency] || {};
   const rates = conversionSelector.rates || {};
   return {
