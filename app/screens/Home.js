@@ -9,6 +9,7 @@ import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
+import { connectAlert } from '../components/Alert';
 const I = I || 0
 
 import { swapCurrency, changeCurrencyAmount, getInititalConversion } from '../actions/currencies';
@@ -25,19 +26,25 @@ class Home extends Component{
     isFetching: PropTypes.bool,
     lastConvertedDate: PropTypes.object,
     primaryColor: PropTypes.string,
+    alertWithType: PropTypes.func,
+    currencyError: PropTypes.string
   };
 
   componentWillMount() {
     this.props.dispatch(getInititalConversion());
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currencyError && nextProps.currencyError !== this.props.currencyError ){
+      this.props.alertWithType('error', 'Error', nextProps.currencyError)
+    }
+  }
+
   handlePressBaseCurrency = () => {
-    console.log('press base currency');
     this.props.navigation.navigate('CurrencyList', { title: 'Base Currency', type: 'base'});
   };
 
   handlePressQuoteCurrency = () => {
-    console.log('press quote currency');
     this.props.navigation.navigate('CurrencyList', {title: 'Quote Currency', type: 'quote'});
   };
 
@@ -112,7 +119,8 @@ const mapStateToProps = (state) => {
     isFetching: conversionSelector.isFetching,
     lastConvertedDate: conversionSelector.date ? new Date(conversionSelector.date) : new Date(),
     primaryColor: state.theme.primaryColor,
+    currencyError: state.currencies.error,
   }
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(connectAlert(Home));
