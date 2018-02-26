@@ -52,7 +52,6 @@ class Home extends Component{
   };
 
   handleOptionsPress = () => {
-    console.log('handle options press')
     this.props.navigation.navigate('Options');
   };
 
@@ -102,7 +101,7 @@ const mapStateToProps = (state) => {
   I++
   const baseCurrency = state.currencies.baseCurrency;
   const quoteCurrency = state.currencies.quoteCurrency;
-  console.log("state.currenciesLog " + I, state.currencies)
+  // console.log("state.currenciesLog " + I, state.currencies)
   const conversionSelector = state.currencies.conversions[baseCurrency] || {};
   const rates = conversionSelector.rates || {};
   return {

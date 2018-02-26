@@ -26,7 +26,6 @@ class CurrencyList extends Component {
       // dispatch changeQuoteCurrency
       this.props.dispatch(changeQuoteCurrency(currency))
     }
-    console.log(currency);
     this.props.navigation.goBack(null);
   };
 

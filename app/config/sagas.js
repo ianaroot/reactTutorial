@@ -6,7 +6,7 @@ import { takeEvery, select, call, put } from 'redux-saga/effects';
 
 import { SWAP_CURRENCY, CHANGE_BASE_CURRENCY, GET_INITIAL_CONVERSION, CONVERSION_ERROR, CONVERSION_RESULT } from '../actions/currencies';
 
-export const getLatestRate = currency => fetch(`http://api.fixer.io/latest?base=${currency}`);
+export const getLatestRate = currency => fetch(`https://api.fixer.io/latest?base=${currency}`);
 
 const fetchLatestConversionRates = function* (action) {
   try {
@@ -27,10 +27,7 @@ const fetchLatestConversionRates = function* (action) {
 };
 
 export default rootSaga = function* rootSaga() {
-  console.log("yield1")
   yield takeEvery(GET_INITIAL_CONVERSION, fetchLatestConversionRates);
-  console.log("yield2")
   yield takeEvery(SWAP_CURRENCY, fetchLatestConversionRates);
-  console.log("yield3")
   yield takeEvery(CHANGE_BASE_CURRENCY, fetchLatestConversionRates);
 }
